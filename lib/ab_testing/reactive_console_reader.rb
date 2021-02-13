@@ -1,7 +1,7 @@
 module AbTesting
   class ReactiveConsoleReader
 
-    def this.get_labels
+    def self.get_labels
       puts "Enter labels and double enter at the end."
       labels = []
       until (label = gets.chomp).empty?
