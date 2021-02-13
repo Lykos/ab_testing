@@ -3,18 +3,19 @@
 require 'ab_testing/ab_test_accumulator'
 require 'ab_testing/reactive_console_reader'
 
-puts "Enter labels and double enter for starting AB testing."
+labels = AbTesting::ReactiveConsoleReader.get_labels
+puts
 
-labels = []
-
-until (label = gets.chomp).empty?
-  labels.push(label)
-end
+reader = AbTesting::ReactiveConsoleReader.new(labels)
+accumulator = AbTesting::AbTestAccumulator.new(labels)
 
 loop do
-  label = cmd_get_label
-  time = get_time
-  data[label].push(time)
+  label = reader.get_label
+  break unless label
+  time = reader.get_time
+  break unless time
+  
+  accumulator.push(label, time)
 end
 
 accumulator.times.each do |label, times|

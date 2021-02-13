@@ -6,7 +6,7 @@ module AbTesting
 
     attr_reader :times
 
-    def add_time(label, time)
+    def push(label, time)
       raise ArgumentError, "Added time #{time} for non-existing label #{label}." unless times.include?(label)
       @times[label].push(time)
     end

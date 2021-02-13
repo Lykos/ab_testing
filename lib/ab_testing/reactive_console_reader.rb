@@ -1,5 +1,15 @@
 module AbTesting
   class ReactiveConsoleReader
+
+    def this.get_labels
+      puts "Enter labels and double enter at the end."
+      labels = []
+      until (label = gets.chomp).empty?
+        labels.push(label)
+      end
+      labels
+    end
+
     def initialize(labels)
       @labels = labels
     end
@@ -16,11 +26,6 @@ module AbTesting
       puts "Enter time"
       return nil unless raw_time = gets
       Float(raw_time)
-    end
-
-    def add_time(label, time)
-      raise ArgumentError, "Added time #{time} for non-existing label #{label}." unless times.include?(label)
-      @times[label].push(time)
     end
   end
 end
