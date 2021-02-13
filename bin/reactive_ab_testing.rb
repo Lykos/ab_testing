@@ -13,18 +13,20 @@ puts
 reader = AbTesting::ReactiveConsoleReader.new(labels)
 accumulator = AbTesting::AbTestAccumulator.new(labels)
 
-loop do
-  label = reader.get_label
-  break unless label
-  time = reader.get_time
-  break unless time
+reader.get_bulk_times(accumulator)
+
+begin
+  loop do
+    label = reader.get_label
+    break unless label
+    time = reader.get_time
+    break unless time
   
-  accumulator.push(label, time)
-end
-
-puts
-
-accumulator.times.each do |label, times|
-  puts label, times
+    accumulator.push(label, time)
+  end
+ensure
   puts
+  puts reader.output_copiable_times(accumulator)
+  puts accumulator.summary
 end
+
