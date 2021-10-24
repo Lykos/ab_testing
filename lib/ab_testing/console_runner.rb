@@ -31,13 +31,18 @@ module AbTesting
 
     def get_time
       puts "Enter time"
-      return nil unless raw_time = gets
-      parse_time(raw_time)
+      loop do 
+        return nil unless raw_time = gets
+        begin
+          return parse_time(raw_time)
+        rescue ArgumentError
+        end
+      end
     end
 
-    def output_copiable_times(accumulator)
+    def output_copiable_times(labels, accumulator)
       puts "Copy the following lines until ### if you want to initialize a follow-up run:"
-      puts @labels
+      puts labels
       puts
       accumulator.times.each do |label, times|
         puts "#{label}: #{times.join(', ')}"
@@ -62,12 +67,13 @@ module AbTesting
           break unless label
           time = get_time
           break unless time
+          puts
   
           accumulator.push(label, time)
         end
       ensure
         puts
-        puts output_copiable_times(accumulator)
+        puts output_copiable_times(labels, accumulator)
         puts accumulator.summary
       end
     end

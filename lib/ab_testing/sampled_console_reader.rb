@@ -5,7 +5,9 @@ module AbTesting
     end
 
     def get_label
-      @labels.sample
+      sample = @labels.sample
+      puts sample
+      sample
     end
   end
 end
