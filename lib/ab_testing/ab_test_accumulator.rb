@@ -27,7 +27,7 @@ module AbTesting
       end.compact
     end
 
-    ALPHAS = [0.99, 0.95, 0.75]
+    ALPHAS = [0.99, 0.95]
 
     def t_test_summary(inputs)
       inputs.combination(2).collect do |a, b|
